@@ -15,13 +15,13 @@
 # https://groups.google.com/forum/?_escaped_fragment_=msg/ansible-project/IcgnAekwsbA/xyK_keXDEgAJ#!msg/ansible-project/IcgnAekwsbA/xyK_keXDEgAJ
 - name: Apply selinux disable
   command: restorecon /usr/lib/systemd/systemd-machined
-  when: nspawn_on_fedora__unconfined|changed
+  when: nspawn_on_fedora__unconfined.changed
 
 - name: Restart systemd-machined with selinux disabled
   service:
     name: systemd-machined
     state: restarted
-  when: nspawn_on_fedora__unconfined|changed
+  when: nspawn_on_fedora__unconfined.changed
 
 # 2. machinectl login fails with a SELinux denial in dbus
 - name: Copy SELinux policy source
@@ -55,7 +55,7 @@
   command: semodule -X 300 -i my-nspawn.pp
   args:
     chdir: /ansible-managed/nspawn-on-fedora/
-  when: nspawn_on_fedora__policy|changed
+  when: nspawn_on_fedora__policy.changed
 
 # 3. Load machine images from a different directory.
 - name: Customize systemd-nspawn@.service
