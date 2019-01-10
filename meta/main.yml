@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: nspawn-on-fedora
   author: Alan Jenkins
   description: Work around issues with systemd-nspawn that happen on Fedora Linux
 
